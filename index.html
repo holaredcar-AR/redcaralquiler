@@ -379,6 +379,31 @@
   .faq-item.open .faq-a { max-height: 200px; }
 
   }
+
+  #mobileMenu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99;
+    background: rgba(255,255,255,0.98);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+  #mobileMenu.open { display: flex; }
+  #mobileMenu a {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.25rem; font-weight: 600;
+    color: var(--negro); text-decoration: none;
+    padding: 14px 32px; border-radius: 50px;
+    width: 80%; text-align: center;
+    transition: background .15s, color .15s;
+  }
+  #mobileMenu a:hover { background: var(--violeta-suave); color: var(--violeta); }
+  #mobileMenu .menu-cta { background: var(--violeta); color: var(--blanco) !important; margin-top: 12px; }
+  #mobileMenu .menu-close {
+    position: absolute; top: 22px; right: 24px;
+    font-size: 1.8rem; font-weight: 300; color: var(--negro);
+    cursor: pointer; background: none; border: none; line-height: 1;
+  }
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -811,7 +836,9 @@ src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
 
   /* Hamburger */
   function toggleMenu() {
-    alert('Menú móvil: podés agregar un menú desplegable si lo necesitás.');
+    var menu = document.getElementById('mobileMenu');
+    var open = menu.classList.toggle('open');
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
   /* FAQ tabs */
@@ -910,6 +937,31 @@ src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
   @media (max-width: 480px) {
     .wsp-float { bottom: 18px; right: 16px; }
     .wsp-float-bubble { font-size: 0.82rem; padding: 9px 14px 9px 10px; }
+  }
+
+  #mobileMenu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99;
+    background: rgba(255,255,255,0.98);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+  #mobileMenu.open { display: flex; }
+  #mobileMenu a {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.25rem; font-weight: 600;
+    color: var(--negro); text-decoration: none;
+    padding: 14px 32px; border-radius: 50px;
+    width: 80%; text-align: center;
+    transition: background .15s, color .15s;
+  }
+  #mobileMenu a:hover { background: var(--violeta-suave); color: var(--violeta); }
+  #mobileMenu .menu-cta { background: var(--violeta); color: var(--blanco) !important; margin-top: 12px; }
+  #mobileMenu .menu-close {
+    position: absolute; top: 22px; right: 24px;
+    font-size: 1.8rem; font-weight: 300; color: var(--negro);
+    cursor: pointer; background: none; border: none; line-height: 1;
   }
 </style>
 
