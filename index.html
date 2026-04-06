@@ -404,6 +404,21 @@
     font-size: 1.8rem; font-weight: 300; color: var(--negro);
     cursor: pointer; background: none; border: none; line-height: 1;
   }
+
+  .btn-cotizar {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 15px 26px; margin-top: 4px;
+    border-radius: 10px; border: 1.5px solid #d0d0d0;
+    background: var(--blanco); color: var(--negro);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: border-color .2s, box-shadow .2s, transform .2s, color .2s;
+  }
+  .btn-cotizar:hover { border-color: var(--violeta); color: var(--violeta); box-shadow: 0 8px 32px rgba(123,63,228,0.18); transform: translateY(-3px); }
+  .btn-full { width: 100%; justify-content: center; }
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -455,7 +470,6 @@ src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
   <ul class="nav-links">
     <li><a href="#duenos">Para dueños</a></li>
     <li><a href="#choferes">Para choferes</a></li>
-    <li><a href="cotizador.html">Cotizador</a></li>
     <li><a href="#porque">¿Por qué RedCar?</a></li>
     <li><a href="#como">Cómo funciona</a></li>
     <li><a href="#faq">Preguntas frecuentes</a></li>
@@ -514,8 +528,12 @@ src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
         <li>Choferes verificados</li>
            </ul>
       <!-- 🔧 EDITAR: reemplazá el número de WhatsApp -->
-      <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20tengo%20un%20auto%20y%20quiero%20que lo administren" class="btn btn-primary" target="_blank">
+      <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20tengo%20un%20auto%20y%20quiero%20que lo administren" class="btn btn-primary btn-full" target="_blank">
         Quiero sumar mi auto →
+      </a>
+      <a href="cotizador.html" target="_blank" class="btn-cotizar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        Cotizá tu auto
       </a>
     </div>
   </div>
@@ -540,7 +558,7 @@ src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
         <li>Soporte personalizado</li>
       </ul>
       <!-- 🔧 EDITAR: reemplazá el número de WhatsApp -->
-      <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20quiero%20alquilar%20un%20auto%20para%20trabajar" class="btn btn-primary" target="_blank">
+      <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20quiero%20alquilar%20un%20auto%20para%20trabajar" class="btn btn-primary btn-full" target="_blank">
         Quiero alquilar un auto →
       </a>
     </div>
@@ -964,6 +982,21 @@ src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
     font-size: 1.8rem; font-weight: 300; color: var(--negro);
     cursor: pointer; background: none; border: none; line-height: 1;
   }
+
+  .btn-cotizar {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 15px 26px; margin-top: 4px;
+    border-radius: 10px; border: 1.5px solid #d0d0d0;
+    background: var(--blanco); color: var(--negro);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: border-color .2s, box-shadow .2s, transform .2s, color .2s;
+  }
+  .btn-cotizar:hover { border-color: var(--violeta); color: var(--violeta); box-shadow: 0 8px 32px rgba(123,63,228,0.18); transform: translateY(-3px); }
+  .btn-full { width: 100%; justify-content: center; }
 </style>
 
 <div class="wsp-float" id="wspFloat">
