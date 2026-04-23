@@ -152,6 +152,30 @@
   .btn-recalcular:hover { border-color: var(--negro); color: var(--negro); }
 
   .divider { height: 1px; background: var(--borde); margin: 28px 0; }
+  .btn-inicio {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--blanco); text-decoration: none;
+    padding: 7px 14px; border-radius: 8px;
+    border: 1.5px solid var(--violeta);
+    background: var(--violeta);
+    transition: background .2s, border-color .2s;
+    margin-bottom: 20px;
+  }
+  .btn-inicio:hover { background: #6030c0; border-color: #6030c0; }
+  .btn-inicio-secundario {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; margin-top: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 600;
+    color: var(--violeta); text-decoration: none;
+    padding: 13px; border-radius: 12px;
+    border: 1.5px solid var(--violeta);
+    background: var(--violeta-suave);
+    transition: background .2s;
+  }
+  .btn-inicio-secundario:hover { background: #e4d5ff; }
   @media (max-width: 480px) {
     .card { padding: 28px 20px 40px; }
     .resultado-precio { font-size: 2rem; }
@@ -162,6 +186,10 @@
 <div class="card">
 
   <div class="logo">Red<span>Car</span></div>
+  <a href="index_1.html" class="btn-inicio">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+    Inicio
+  </a>
 
   <div id="formulario">
     <h1 class="card-title">Cotizá tu auto</h1>
@@ -206,8 +234,6 @@
         <option>Honda</option>
         <option>Hyundai</option>
         <option>Kia</option>
-        <option>Suzuki</option>
-        <option>Jeep</option>
         <option>Otra</option>
       </select>
     </div>
@@ -227,7 +253,7 @@
     </div>
 
     <div class="field">
-      <label>Kilómetros</label>
+      <label>Kilómetros (sin puntos)</label>
       <input type="number" id="km" placeholder="Ej: 45000" min="0" max="999999" oninput="onFieldChange()" disabled>
     </div>
 
@@ -242,6 +268,10 @@
     <button class="btn-continuar" id="btnContinuar" onclick="cotizar()">
       Ver cotización →
     </button>
+    <a href="index_1.html" class="btn-inicio-secundario">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      Ir al inicio
+    </a>
   </div>
 
   <div id="resultado">
@@ -260,12 +290,16 @@
         Contactar por WhatsApp
       </a>
       <button class="btn-recalcular" onclick="recalcular()">← Cotizar otro auto</button>
+      <a href="index_1.html" class="btn-inicio-secundario" style="margin-top:10px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        Ir al inicio
+      </a>
     </div>
     <div id="res-no" style="display:none">
       <div class="no-califica">
         <div class="ico">⚠️</div>
         <h3>Tu auto no califica por el momento</h3>
-        <p>Buscamos autos desde 2020 con bajo kilometraje. Si tu auto no cumple alguno de los requisitos actuales, escribinos igual y lo evaluamos.</p>
+        <p>Buscamos autos a partir del año 2020 con bajo kilometraje. Si tu auto no cumple alguno de los requisitos actuales, escribinos igual y lo evaluamos.</p>
       </div>
       <div class="divider"></div>
       <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20quiero%20consultar%20sobre%20mi%20auto" class="btn-wsp" target="_blank">
@@ -273,6 +307,10 @@
         Consultanos igual
       </a>
       <button class="btn-recalcular" onclick="recalcular()">← Volver</button>
+      <a href="index_1.html" class="btn-inicio-secundario" style="margin-top:10px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        Ir al inicio
+      </a>
     </div>
   </div>
 
@@ -293,7 +331,6 @@ const modelos = {
   Hyundai:    ['HB20','i30','Creta','Tucson','Santa Fe','Otro'],
   Kia:        ['Picanto','Rio','Cerato','Sportage','Sorento','Otro'],
   Suzuki:     ['Swift','Vitara','S-Cross','Baleno','Otro'],
-  Jeep:       ['Renegade','Compass','Wrangler','Cherokee','Otro'],
   Otra:       ['Otro modelo']
 };
 const versiones = {
@@ -381,13 +418,13 @@ function cotizar() {
 
   // Verificar rangos
   if (anio >= 2020 && anio <= 2022) {
-    if (km <= 80000) precio = gnc ? 1080000 : 1050000;
+    if (km <= 80000) precio = gnc ? 1100000 : 900000;
     else califica = false;
   } else if (anio >= 2022 && anio <= 2024) {
-    if (km <= 60000) precio = gnc ? 1140000 : 1050000;
+    if (km <= 60000) precio = gnc ? 1140000 : 900000;
     else califica = false;
   } else if (anio >= 2024 && anio <= 2026) {
-    if (km <= 40000) precio = gnc ? 1200000 : 1080000;
+    if (km <= 40000) precio = gnc ? 1200000 : 900000;
     else califica = false;
   } else {
     califica = false;
@@ -404,7 +441,7 @@ function cotizar() {
     document.getElementById('res-desc').textContent =
       `Estimación basada en un ${f.anio} con ${parseInt(f.km).toLocaleString('es-AR')} km${gnc ? ' y GNC' : ''}. El valor final se confirma tras la revisión del vehículo.`;
 
-    const tags = ['Pago semanal garantizado', 'Chofer verificado','Seguimiento y reportes de tu vehículo', 'Contrato incluido'];
+    const tags = ['Pago semanal garantizado', 'Chofer verificado','Seguimiento y reportes de tu vehículo', 'Contrato incluido','Sin hacer nada',];
     document.getElementById('res-tags').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
 
     const msg = encodeURIComponent(`Hola RedCar! Hice la cotización en la web y me dio ${precioFmt}/mes para mi ${f.marca} ${f.modelo} ${f.version} ${f.anio} con ${f.km}km${gnc ? ' y GNC' : ''}. Quiero más información.`);
