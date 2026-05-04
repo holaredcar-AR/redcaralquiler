@@ -515,7 +515,7 @@ function cotizar() {
 
 document.getElementById('res-tags').innerHTML =
   tags.map(t => `<span class="tag">${t}</span>`).join('') +
-  `<div class="alerta-gnc">⚠️ SIN GNC NO ES PROBLEMA: Tenés hasta 30 días para instalarlo ⚠️</div>`;
+  (!gnc ? `<div class="alerta-gnc">⚠️ SIN GNC NO ES PROBLEMA: Tenés hasta 30 días para instalarlo ⚠️</div>` : '');
 
     const msg = encodeURIComponent(`Hola RedCar! Hice la cotización en la web y me dio ${precioFmt}/mes para mi ${f.marca} ${f.modelo} ${f.version} ${f.anio} con ${f.km}km${gnc ? ' y GNC' : ''}. Quiero más información.`);
     document.getElementById('btn-wsp-link').href = `https://wa.me/5491164647131?text=${msg}`;
