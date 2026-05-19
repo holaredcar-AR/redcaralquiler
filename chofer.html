@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choferes - RedCar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --violeta: #542474;
+    --violeta-claro: #8040b0;
+    --violeta-suave: #f0e6f6;
+    --negro: #111111;
+    --gris: #666;
+    --gris-claro: #f5f5f5;
+    --borde: #e0e0e0;
+    --blanco: #fff;
+    --verde: #25D366;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gris-claro);
+    color: var(--negro);
+    min-height: 100vh;
+    padding: 28px 16px 42px;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    width: 520px;
+    height: 520px;
+    right: -160px;
+    top: -180px;
+    background: radial-gradient(circle, rgba(84,36,116,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .page {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .logo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--negro);
+    letter-spacing: -0.03em;
+  }
+  .logo span { color: var(--violeta); }
+  .btn-inicio {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--violeta);
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 1.5px solid var(--violeta);
+    border-radius: 10px;
+    background: var(--violeta-suave);
+  }
+  .hero, .card, .cta {
+    background: var(--blanco);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.07);
+  }
+  .hero {
+    border-radius: 20px;
+    padding: 46px;
+    margin-bottom: 18px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    background: var(--violeta-suave);
+    color: var(--violeta);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  h1, h2, h3, .btn {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 5vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    max-width: 720px;
+    color: var(--gris);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .card {
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .card h2 {
+    font-size: 1.22rem;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .card p {
+    color: var(--gris);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--negro);
+    line-height: 1.55;
+  }
+  li::before {
+    content: "\2713";
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--violeta-suave);
+    color: var(--violeta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-top: 1px;
+  }
+  .wide { grid-column: 1 / -1; }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .step {
+    background: var(--gris-claro);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--violeta-suave);
+    color: var(--violeta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .step h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .step p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .faq-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .faq-item {
+    background: var(--gris-claro);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 20px;
+    border: 0;
+    background: transparent;
+    color: var(--negro);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+  }
+  .faq-question::after {
+    content: "+";
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--violeta-suave);
+    color: var(--violeta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  .faq-item.open .faq-question::after {
+    content: "-";
+  }
+  .faq-item p {
+    margin: 0;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    font-size: 0.95rem;
+    transition: max-height .25s ease, padding .25s ease;
+  }
+  .faq-item.open p {
+    max-height: 140px;
+    padding: 0 20px 20px;
+  }
+  .cta {
+    border-radius: 20px;
+    padding: 34px;
+    margin-top: 18px;
+    text-align: center;
+  }
+  .cta h2 { margin-bottom: 8px; }
+  .cta p {
+    color: var(--gris);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 230px;
+    padding: 15px 22px;
+    border-radius: 12px;
+    color: var(--blanco);
+    text-decoration: none;
+    font-weight: 800;
+    border: none;
+    transition: transform .2s, filter .2s;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--violeta) 0%, #8040b0 100%);
+    box-shadow: 0 8px 28px rgba(84,36,116,0.35);
+  }
+  .btn-whatsapp {
+    background: var(--verde);
+    box-shadow: 0 8px 28px rgba(37,211,102,0.32);
+  }
+  @media (max-width: 760px) {
+    body { padding-top: 20px; }
+    .topbar { align-items: flex-start; }
+    .hero { padding: 30px 22px; }
+    .grid, .steps, .faq-list { grid-template-columns: 1fr; }
+    .card, .cta { padding: 24px 20px; }
+    .actions { flex-direction: column; }
+    .btn { width: 100%; min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="topbar">
+    <div class="logo">Red<span>Car</span></div>
+    <a href="index.html" class="btn-inicio">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      Inicio
+    </a>
+  </div>
+
+  <section class="hero">
+    <span class="tag">Choferes</span>
+    <h1>Alquil&aacute; un auto para trabajar con apps</h1>
+    <p>En RedCar te damos un auto a cargo para que puedas trabajar con apps, agencias o tus propios clientes. La modalidad es semanal, con condiciones claras, soporte y seguimiento.</p>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <h2>Modalidad de alquiler</h2>
+      <ul>
+        <li>Auto a cargo durante la semana completa.</li>
+        <li>No se alquila por horas ni por turnos.</li>
+        <li>Pod&eacute;s trabajar con cualquier app habilitada.</li>
+        <li>El pago del alquiler es semanal y por adelantado.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Requisitos</h2>
+      <ul>
+        <li>Tener la semana por adelantado de alquiler.</li>
+        <li>Registro D1 profesional.</li>
+        <li>DNI vigente.</li>
+        <li>Antecedentes penales actualizados.</li>
+        <li>Factura de servicio: luz, gas, agua o internet.</li>
+        <li>Apps activas.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Condiciones principales</h2>
+      <ul>
+        <li>Hasta 1.800 km semanales incluidos.</li>
+        <li>Uso permitido en CABA y GBA, de Z&aacute;rate a La Plata incluido.</li>
+        <li>Combustible, lavados, peajes, multas y da&ntilde;os por mal uso son a cargo del chofer.</li>
+        <li>Chequeos semanales de km, limpieza y estado general.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Qu&eacute; incluye RedCar</h2>
+      <ul>
+        <li>Autos con mec&aacute;nica al d&iacute;a.</li>
+        <li>Seguro para pasajeros.</li>
+        <li>Habilitaci&oacute;n para trabajar en Cabify cuando corresponda.</li>
+        <li>Acompa&ntilde;amiento por WhatsApp.</li>
+      </ul>
+    </article>
+
+    <article class="card wide">
+      <h2>C&oacute;mo funciona</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Nos escrib&iacute;s</h3>
+          <p>Si cont&aacute;s con Registro D1, nos escrib&iacute;s para recibir la informaci&oacute;n del alquiler.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Verificamos tu perfil</h3>
+          <p>Si se aprueba tu perfil, coordinamos una entrevista para que veas el auto disponible.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Retir&aacute;s el auto</h3>
+          <p>Abon&aacute;s la semana y retir&aacute;s el auto a cargo, listo para trabajar.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="card wide">
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;C&oacute;mo funciona el alquiler?</button>
+          <p>Trabajamos con modalidad a cargo: ten&eacute;s el auto toda la semana completa.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;D&oacute;nde se retira?</button>
+          <p>La entrega y gesti&oacute;n se coordinan desde nuestra oficina en V. Ballester.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Qu&eacute; tipo de autos ofrecen?</button>
+          <p>Autos con GNC y nafta, mec&aacute;nica al d&iacute;a y condiciones aptas para trabajar.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Tengo que dejar se&ntilde;a o dep&oacute;sito?</button>
+          <p>S&iacute;, una se&ntilde;a para reservar y un dep&oacute;sito en garant&iacute;a al firmar el contrato.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Cu&aacute;ndo se paga?</button>
+          <p>El alquiler se paga por adelantado cada semana.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Hay seguimiento?</button>
+          <p>S&iacute;, hacemos controles semanales de km, estado general, limpieza y mantenimiento.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="cta">
+    <h2>&iquest;Quer&eacute;s alquilar un auto?</h2>
+    <p>Escribinos por WhatsApp y contanos si ya ten&eacute;s Registro D1 y apps activas. Te respondemos con la informaci&oacute;n para avanzar.</p>
+    <div class="actions">
+      <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20quiero%20alquilar%20un%20auto%20para%20trabajar" class="btn btn-whatsapp" target="_blank" aria-label="Contactar por WhatsApp al 1164647131">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.099.542 4.07 1.491 5.785L0 24l6.381-1.473A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.791 9.791 0 01-4.967-1.349l-.356-.212-3.688.851.874-3.597-.232-.369A9.773 9.773 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+        Contactar por WhatsApp
+      </a>
+    </div>
+  </section>
+</main>
+<script>
+  document.querySelectorAll('.faq-question').forEach(function(button) {
+    button.addEventListener('click', function() {
+      var item = button.closest('.faq-item');
+      var isOpen = item.classList.toggle('open');
+      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+</script>
+</body>
+</html>
