@@ -139,6 +139,93 @@
     line-height: 1.7;
     margin-bottom: 14px;
   }
+  .wide { grid-column: 1 / -1; }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .step {
+    background: var(--gris-claro);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--violeta-suave);
+    color: var(--violeta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .step h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .step p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .faq-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .faq-item {
+    background: var(--gris-claro);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 20px;
+    border: 0;
+    background: transparent;
+    color: var(--negro);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+  }
+  .faq-question::after {
+    content: "+";
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--violeta-suave);
+    color: var(--violeta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  .faq-item.open .faq-question::after { content: "-"; }
+  .faq-item p {
+    margin: 0;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    font-size: 0.95rem;
+    transition: max-height .25s ease, padding .25s ease;
+  }
+  .faq-item.open p {
+    max-height: 160px;
+    padding: 0 20px 20px;
+  }
   ul {
     list-style: none;
     display: flex;
@@ -394,7 +481,7 @@
     body { padding-top: 20px; }
     .topbar { align-items: flex-start; }
     .hero { padding: 30px 22px; }
-    .grid { grid-template-columns: 1fr; }
+    .grid, .steps, .faq-list { grid-template-columns: 1fr; }
     .card, .cta, .comparativa { padding: 24px 20px; }
     .compare-scene {
       grid-template-columns: 1fr;
@@ -474,6 +561,57 @@
         <li>Seguro, patente y GPS son a cargo del due&ntilde;o.</li>
       </ul>
     </article>
+
+    <article class="card wide">
+      <h2>C&oacute;mo funciona</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Nos escribís</h3>
+          <p>Envianos un WhatsApp por tu auto.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Verificamos cotizacion</h3>
+          <p>Confirmamos los valores, acordamos las condiciones y sumamos tu auto con nosotros.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Lo ponemos a trabajar</h3>
+          <p>Seleccionamos el chofer, obtene tus ganancias y administramos el seguimiento semanal.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="card wide">
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;C&oacute;mo funciona el modelo a cargo?</button>
+          <p>Tu auto se alquila a un solo chofer por semana completa, con contrato y tope de kil&oacute;metros semanales.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Qui&eacute;n selecciona al chofer?</button>
+          <p>RedCar realiza la selecci&oacute;n, validaci&oacute;n y seguimiento del chofer asignado.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Cu&aacute;ndo cobro?</button>
+          <p>Recib&iacute;s los pagos semanalmente por transferencia, seg&uacute;n lo acordado.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Qu&eacute; gastos quedan a cargo del due&ntilde;o?</button>
+          <p>Seguro, patente y GPS son a cargo del due&ntilde;o. Mantenimientos y honorarios se descuentan del alquiler.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Hay contrato?</button>
+          <p>S&iacute;, todo queda respaldado por contrato firmado entre ambas partes.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">&iquest;Qu&eacute; seguimiento hacen?</button>
+          <p>Hacemos seguimientos semanales, control de uso, reportes y gesti&oacute;n operativa del veh&iacute;culo.</p>
+        </div>
+      </div>
+    </article>
   </section>
 
   <section class="comparativa">
@@ -498,5 +636,14 @@
     </div>
   </section>
 </main>
+<script>
+  document.querySelectorAll('.faq-question').forEach(function(button) {
+    button.addEventListener('click', function() {
+      var item = button.closest('.faq-item');
+      var isOpen = item.classList.toggle('open');
+      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+</script>
 </body>
 </html>
