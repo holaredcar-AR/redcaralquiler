@@ -279,6 +279,8 @@ body::before {
       <label>Año</label>
       <select id="anio" onchange="onFieldChange()">
         <option value="">Seleccioná el año</option>
+        <option>2020</option>
+        <option>2021</option>
         <option>2022</option>
         <option>2023</option>
         <option>2024</option>
@@ -485,16 +487,20 @@ function cotizar() {
   const km = parseInt(f.km);
   const gnc = f.gnc === 'si';
 
-  let precio = null;
+  let precioMin = 0, precioMax = 0;
   let califica = true;
 
-  // Verificar rangos
-  if (anio >= 2022 && anio <= 2024) {
-    if (km <= 60000) precio = gnc ? 1000000 : 800000;
-    else califica = false;
+  /// Verificar rangos
+  if (anio >= 2020 && anio <= 2024) {
+    if (km <= 80000) {
+      if (gnc) { precioMin = 1000000; precioMax = 1200000; }
+      else { precioMin = 800000; precioMax = 800000; }
+    } else califica = false;
   } else if (anio >= 2024 && anio <= 2026) {
-    if (km <= 40000) precio = gnc ? 1200000 : 800000;
-    else califica = false;
+    if (km <= 80000) {
+      if (gnc) { precioMin = 1200000; precioMax = 1500000; }
+      else { precioMin = 800000; precioMax = 800000; }
+    } else califica = false;
   } else {
     califica = false;
   }
@@ -502,12 +508,13 @@ function cotizar() {
   document.getElementById('formulario').style.display = 'none';
   document.getElementById('resultado').style.display = 'block';
 
-  if (califica && precio) {
-    const precioFmt = '$' + precio.toLocaleString('es-AR');
+  if (califica && precioMin) {
+    const precioFmt = precioMin === precioMax
+  ? '$' + precioMin.toLocaleString('es-AR')
+  : 'Entre $' + precioMin.toLocaleString('es-AR') + ' y $' + precioMax.toLocaleString('es-AR');
     document.getElementById('res-subtitulo').textContent =
       `${f.marca} ${f.modelo} ${f.version} — ${f.anio} · ${parseInt(f.km).toLocaleString('es-AR')} km`;
-    animarPrecio(precio);
-    document.getElementById('res-desc').textContent =
+document.getElementById('res-precio').textContent = precioFmt + ' por mes';    document.getElementById('res-desc').textContent =
       `Estimación basada en un ${f.anio} con ${parseInt(f.km).toLocaleString('es-AR')} km${gnc ? ' y GNC' : ''}. El valor final se confirma tras la revisión del vehículo.`;
 
     const tags = [
