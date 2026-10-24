@@ -507,12 +507,12 @@ function cotizar() {
     document.getElementById('res-subtitulo').textContent =
       `${f.marca} ${f.modelo} ${f.version} — ${f.anio} · ${parseInt(f.km).toLocaleString('es-AR')} km`;
 document.getElementById('res-precio').textContent = precioFmt + ' por mes';    document.getElementById('res-desc').textContent =
-      `Estimación basada en un ${f.anio} con ${parseInt(f.km).toLocaleString('es-AR')} km${gnc ? ' y GNC' : ''}. Es lo que estimamos que recibís por mes, con nuestra comisión (25% del alquiler) ya descontada. A ese monto se le restan los mantenimientos y los gastos a cargo del dueño (seguro, patente y GPS). El valor final se confirma tras la revisión del vehículo.`;
+      `Estimación basada en un ${f.anio} con ${parseInt(f.km).toLocaleString('es-AR')} km${gnc ? ' y GNC' : ''}. Es lo que estimamos que recibís por mes, con nuestra comisión (25% del alquiler) ya descontada. A ese monto se le restan los mantenimientos y los gastos a cargo del dueño (seguro, patente y GPS). El valor final se confirma tras la revisión del auto.`;
 
     const tags = [
   'Cobro semanal por transferencia',
   'Chofer verificado',
-  'Seguimiento y reportes de tu vehículo',
+  'Seguimiento y reportes de tu auto',
   'Contrato incluido',
   'Nos ocupamos de todo'
 ];
