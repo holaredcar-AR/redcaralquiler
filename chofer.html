@@ -2,13 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.add("js-anim");</script>
+
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Choferes — RedCar</title>
+<title>Alquiler de autos para Uber, Cabify y DiDi | RedCar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -291,12 +293,70 @@
     padding: 0 20px 20px;
   }
   /* CTA */
+  /* =====================
+     TESTIMONIOS (carrusel de mensajes estilo WhatsApp)
+  ===================== */
+  .testimonios { background: var(--gris-claro, #f5f5f5); padding: 52px 0; overflow: hidden; }
+  .testi-head { max-width: 760px; margin: 0 auto 28px; padding: 0 5%; text-align: center; }
+  .testi-head h2 { margin-bottom: 12px; }
+  .testi-head .section-tag, .testi-head .tag { margin-bottom: 16px; }
+  .testi-carrusel {
+    overflow: hidden; padding: 6px 0 14px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  .testi-pista { display: flex; gap: 14px; width: max-content; animation: testi-loop var(--dur, 60s) linear infinite; }
+  .testi-carrusel:hover .testi-pista,
+  .testi-carrusel:focus-within .testi-pista,
+  .testi-carrusel.pausado .testi-pista { animation-play-state: paused; }
+  @keyframes testi-loop { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 7px)); } }
+  .wa-card {
+    flex-shrink: 0; width: 235px; display: flex; flex-direction: column;
+    border-radius: 14px; padding: 9px 9px 11px;
+    background-color: #efeae2;
+    background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 16px 16px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  }
+  .wa-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .wa-ini {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 0.95rem; color: #fff;
+    background: var(--c, #542474);
+  }
+  .wa-card-head strong { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; color: #111b21; line-height: 1.2; }
+  .wa-card-head span { font-size: 0.68rem; color: #667781; }
+  .wa-card-head .wa-ini { font-size: 0.74rem; color: #fff; }
+  .wa-bubble {
+    position: relative; margin: 0 0 0 8px; flex: 1;
+    background: #fff; border-radius: 0 9px 9px 9px; padding: 7px 9px 8px;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  }
+  .wa-bubble::before {
+    content: ''; position: absolute; top: 0; left: -8px;
+    border-right: 8px solid #fff; border-bottom: 10px solid transparent;
+  }
+  .wa-bubble blockquote { margin: 0; font-size: 0.78rem; line-height: 1.45; color: #111b21; }
+  @media (max-width: 600px) {
+    .testimonios { padding: 40px 0; }
+    .wa-card { width: 225px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .testi-pista { animation: none; }
+    .testi-carrusel { overflow-x: auto; -webkit-mask-image: none; mask-image: none; padding: 6px 5% 14px; }
+  }
+  .testimonios { padding: 56px 0 16px; background: none; }
+  .testimonios h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); line-height: 1.15; }
+  .testimonios .testi-head p { color: #555; line-height: 1.7; }
   .cta {
     border-radius: 20px;
     padding: 34px;
     margin-top: 18px;
     text-align: center;
   }
+  .cta .ig-link { display: inline-flex; align-items: center; gap: 8px; margin: 4px 0 18px; color: var(--violeta); text-decoration: none; font-size: 0.92rem; font-weight: 600; }
+  .cta .ig-link:hover { text-decoration: underline; text-underline-offset: 3px; }
   .cta h2 { margin-bottom: 8px; }
   .cta p {
     color: var(--gris);
@@ -346,6 +406,60 @@
     margin-top: 28px;
     display: block;
   }
+
+  /* =====================
+     ANIMACIONES DE LA PÁGINA
+  ===================== */
+  :root { --ease-out: cubic-bezier(.2, .8, .2, 1); }
+  @keyframes entra { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes palabra { from { transform: translateY(105%); } to { transform: none; } }
+  @keyframes foto-entra { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
+
+  /* Encabezado: entra en cascada al cargar */
+  .js-anim .hero > *:not(.hero-bg):not(h1) { animation: entra .7s var(--ease-out) both; }
+  .js-anim .hero > *:nth-child(1) { animation-delay: .05s; }
+  .js-anim .hero > *:nth-child(2) { animation-delay: .12s; }
+  .js-anim .hero > *:nth-child(3) { animation-delay: .45s; }
+  .js-anim .hero > *:nth-child(4) { animation-delay: .55s; }
+  .js-anim .hero > *:nth-child(5) { animation-delay: .65s; }
+  .js-anim .hero > *:nth-child(6) { animation-delay: .75s; }
+  .js-anim .hero > *:nth-child(7) { animation-delay: .85s; }
+  .js-anim .hero > .hero-img { animation: foto-entra 1.1s var(--ease-out) .35s both; }
+  .hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .hero h1 .w > span { display: inline-block; animation: palabra .8s var(--ease-out) both; animation-delay: calc(var(--i) * 55ms + 120ms); }
+
+  /* Aparición al hacer scroll */
+  .js-anim .anim { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); transition-delay: var(--d, 0s); }
+  .js-anim .anim.in { opacity: 1; transform: none; }
+
+  /* Listas dentro de las tarjetas: los ítems entran uno por uno */
+  .js-anim .anim ul li { opacity: 0; transform: translateX(-10px); transition: opacity .5s var(--ease-out), transform .5s var(--ease-out); }
+  .js-anim .anim.in ul li { opacity: 1; transform: none; }
+  .js-anim .anim.in ul li:nth-child(1) { transition-delay: .15s; }
+  .js-anim .anim.in ul li:nth-child(2) { transition-delay: .22s; }
+  .js-anim .anim.in ul li:nth-child(3) { transition-delay: .29s; }
+  .js-anim .anim.in ul li:nth-child(4) { transition-delay: .36s; }
+  .js-anim .anim.in ul li:nth-child(5) { transition-delay: .43s; }
+  .js-anim .anim.in ul li:nth-child(6) { transition-delay: .50s; }
+  .js-anim .anim.in ul li:nth-child(n+7) { transition-delay: .57s; }
+
+  /* Números de los pasos: aparecen con un pequeño rebote */
+  .js-anim .anim .step-num { transform: scale(0.6); opacity: 0; transition: transform .5s cubic-bezier(.34, 1.4, .64, 1), opacity .3s ease; transition-delay: calc(var(--d, 0s) + .2s); }
+  .js-anim .anim.in .step-num { transform: none; opacity: 1; }
+
+  /* Tarjetas: se elevan al pasar el mouse */
+  .card, .problema-card, .incluye-card { transition: transform .3s var(--ease-out), box-shadow .3s ease, border-color .25s ease, background .25s ease; }
+  @media (hover: hover) {
+    .card:hover, .problema-card:hover, .incluye-card:hover { transform: translateY(-4px); }
+    .card:hover { box-shadow: 0 14px 40px rgba(84,36,116,0.12); }
+  }
+  /* Evita que la elevación se mezcle con la entrada */
+  .js-anim .anim.in.card:hover, .js-anim .anim.in.problema-card:hover, .js-anim .anim.in.incluye-card:hover { transform: translateY(-4px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js-anim .hero > *, .hero h1 .w > span { animation: none !important; }
+    .js-anim .anim, .js-anim .anim ul li, .js-anim .anim .step-num { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -371,43 +485,53 @@
       <ul>
         <li>Auto a cargo durante la semana completa.</li>
         <li>No se alquila por horas ni por turnos.</li>
-        <li>Pod&eacute;s trabajar con cualquier app habilitada.</li>
+        <li>Pod&eacute;s trabajar con Uber, Cabify o DiDi.</li>
         <li>El pago del alquiler es semanal y por adelantado.</li>
+        <li>Contrato mínimo de 3 meses; después podés cancelar con 7 días de aviso.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Precios por semana</h2>
+      <ul>
+        <li>Sedán 2020 a 2024: $450.000.</li>
+        <li>Sedán 2025 y 2026: $500.000.</li>
+        <li>Hatchback 2020 a 2024: $420.000.</li>
+        <li>Hatchback 2025 y 2026: $480.000.</li>
+        <li>Siempre con 2.000 km semanales incluidos ($600 por km excedente).</li>
       </ul>
     </article>
 
     <article class="card">
       <h2>Requisitos</h2>
       <ul>
-        <li>Tener la semana por adelantado de alquiler.</li>
-        <li>Registro D1 profesional.</li>
+                <li>Registro profesional D1.</li>
         <li>DNI vigente.</li>
         <li>Antecedentes penales actualizados.</li>
-        <li>Factura de servicio: luz, gas, agua o internet.</li>
-        <li>Apps activas.</li>
+        <li>Factura de un servicio a tu nombre: luz, gas, agua o internet.</li>
+        <li>Tus propias cuentas activas en las apps (no las vinculamos a las nuestras).</li>
       </ul>
     </article>
 
     <article class="card">
       <h2>Condiciones principales</h2>
       <ul>
-        <li>Planes de 1.800km o 2000km semanales incluidos.</li>
-        <li>Uso permitido en CABA y GBA (hasta Zárate/Mercedes/La Plata incluidos).</li>
-        <li>Combustible, lavados, peajes, multas y da&ntilde;os por mal uso son a cargo del chofer.</li>
+        <li>2.000 km semanales incluidos. El km excedente se cobra $600.</li>
+        <li>Circulación por CABA y GBA, de Zárate y Mercedes hasta La Plata inclusive.</li>
+        <li>Combustible, lavados, peajes, multas y da&ntilde;os por mal uso son a cargo del chofer, igual que lo que el seguro no cubra en un siniestro (por ejemplo, la franquicia).</li>
         <li>Chequeos semanales de km, limpieza y estado general.</li>
-        <li>A cargo de llevarlo a los turnos de talleres para sus mantenimientos.<li>
+        <li>Llevar el auto a los turnos de taller para su mantenimiento.</li>
       </ul>
     </article>
 
-    <article class="card">
-      <h2>Además en RedCar ténes</h2>
+    <article class="card wide">
+      <h2>Además, en RedCar tenés</h2>
       <ul>
         <li>Autos con mec&aacute;nica al d&iacute;a.</li>
         <li>Seguro para pasajeros.</li>
         <li>Viajes corporativos en Cabify.</li>
         <li>Acompa&ntilde;amiento por WhatsApp.</li>
-        <li>Podes usar Uber,Didi o Cabify<li>
-      </ul>
+              </ul>
     </article>
 
     <article class="card wide">
@@ -416,7 +540,7 @@
         <div class="step">
           <div class="step-num">1</div>
           <h3>Nos escrib&iacute;s</h3>
-          <p>Si cont&aacute;s con Registro D1, nos escrib&iacute;s para recibir la informaci&oacute;n del alquiler.</p>
+          <p>Si ten&eacute;s registro profesional D1, escribinos y te pasamos la informaci&oacute;n del alquiler.</p>
         </div>
         <div class="step">
           <div class="step-num">2</div>
@@ -447,27 +571,35 @@
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false">¿Dónde se retira?</button>
-          <p>La entrega y gestión se coordinan desde nuestra oficina en V. Ballester.</p>
+          <p>Coordinamos todo por WhatsApp. La entrega del auto y los pagos se hacen en Villa Ballester. Atención de 10 a 18 h.</p>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false">¿Qué tipo de autos ofrecen?</button>
-          <p>Autos con GNC y nafta, mecánica al día y condiciones aptas para trabajar.</p>
+          <p>Sedanes y algunos hatchback 2020 en adelante, con GNC y nafta, aire acondicionado y mecánica al día.</p>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false">¿Cuántos km puedo hacer por semana?</button>
-          <p>Tenés hasta 1.800 km semanales incluidos.</p>
+          <p>Tenés 2.000 km por semana incluidos en el alquiler. Si te pasás, cada km excedente se cobra $600.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">¿Hay un tiempo mínimo de contrato?</button>
+          <p>Sí, 3 meses de alquiler continuo. Pasado ese plazo, podés cancelarlo avisando con 7 días de anticipación.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">¿Y si tengo un choque?</button>
+          <p>El auto tiene seguro para transporte de pasajeros. Avisanos enseguida para hacer la denuncia a tiempo. Lo que el seguro no cubra, como la franquicia, puede quedar a cargo del chofer según el contrato.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">¿Y si el auto se rompe?</button>
+          <p>Buscamos una solución inmediata para que vuelvas a trabajar cuanto antes. Es algo que pasa muy pocas veces.</p>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false">¿Tengo que dejar seña o depósito?</button>
-          <p>Sí, una seña para reservar y un depósito en garantía al firmar el contrato.</p>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" type="button" aria-expanded="false">¿Cuándo se paga?</button>
-          <p>El alquiler se paga por adelantado cada semana.</p>
+          <p>Antes de la entrevista no pedimos dinero. Si avanzamos, dejás una seña de $100.000 para reservar el auto. El depósito en garantía equivale a una semana de alquiler: entregás $100.000 y el resto lo completás en cuotas semanales.</p>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false">¿Hay límite de zonas?</button>
-          <p>Podés circular por CABA y GBA, de Zárate a La Plata incluido.</p>
+          <p>Podés circular por CABA y GBA, de Zárate y Mercedes hasta La Plata inclusive.</p>
         </div>
         <div class="faq-item">
           <button class="faq-question" type="button" aria-expanded="false">¿Qué gastos son a cargo del chofer?</button>
@@ -486,11 +618,25 @@
     </article>
   </section>
 
+<!-- ==================== TESTIMONIOS CHOFER ==================== -->
+<!-- Se muestra solo si hay testimonios de este tipo en la lista TESTIMONIOS (en el script). -->
+<section class="testimonios" data-testimonios="chofer" hidden>
+  <div class="testi-head reveal">
+    <span class="tag">Testimonios</span>
+    <h2>Lo que dicen los choferes</h2>
+    <p>Choferes que trabajan con autos de RedCar cuentan su experiencia.</p>
+  </div>
+  <div class="testi-carrusel" tabindex="0" aria-label="Testimonios; pasá el mouse o tocá para pausar">
+    <div class="testi-pista"></div>
+  </div>
+</section>
+
   <section class="cta">
     <h2>&iquest;Quer&eacute;s alquilar un auto?</h2>
-    <p>Escrib&iacute;nos por WhatsApp y cont&aacute;nos si ya ten&eacute;s Registro D1 y apps activas. Te respondemos con la informaci&oacute;n para avanzar.</p>
+    <p>Escribinos por WhatsApp y contanos si ya ten&eacute;s registro D1 y tus cuentas activas en las apps. Te respondemos con la informaci&oacute;n para avanzar. Atenci&oacute;n de 10 a 18 h.</p>
+    <a class="ig-link" href="https://www.instagram.com/redcaralquiler/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none"/></svg><span>@redcaralquiler en Instagram</span></a>
     <div class="actions">
-      <a href="https://wa.me/5491164647131?text=Hola RedCar, quiero alquilar un auto para trabajar " class="btn btn-whatsapp" target="_blank">
+      <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20quiero%20alquilar%20un%20auto%20para%20trabajar" class="btn btn-whatsapp" target="_blank">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.099.542 4.07 1.491 5.785L0 24l6.381-1.473A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.791 9.791 0 01-4.967-1.349l-.356-.212-3.688.851.874-3.597-.232-.369A9.773 9.773 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
         Contactar por WhatsApp
       </a>
@@ -548,7 +694,7 @@
 </style>
 
 <div class="wsp-float-duenos">
-  <a href="https://wa.me/5491164647131?text=Hola RedCar, quiero alquilar un auto para trabajar" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20quiero%20alquilar%20un%20auto%20para%20trabajar" target="_blank" rel="noopener" aria-label="WhatsApp">
     <span class="wsp-pulse-d"></span>
     <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -556,5 +702,132 @@
     </svg>
   </a>
 </div>
+<script>
+  /* Testimonios: cargá acá solo comentarios reales, con permiso de cada persona.
+     tipo: 'dueno' o 'chofer'. */
+  var TESTIMONIOS = [
+  {
+    "tipo": "chofer",
+    "nombre": "Diego",
+    "detalle": "Chofer de Uber y DiDi",
+    "texto": "Necesitaba un auto para empezar a trabajar y encontré una opción que me servía. Me explicaron las condiciones desde el principio y pude organizarme. Para mí, lo importante es tener el auto disponible para salir a trabajar."
+  },
+  {
+    "tipo": "chofer",
+    "nombre": "Cristian",
+    "detalle": "Chofer de Uber y Cabify",
+    "texto": "Ya había averiguado en otros lugares y no me terminaban de cerrar las condiciones. Acá me explicaron cuánto tenía que pagar y cómo era el tema del depósito. Prefiero saber las cosas claras desde el primer día."
+  },
+  {
+    "tipo": "chofer",
+    "nombre": "Ezequiel",
+    "detalle": "Chofer de Uber y Cabify",
+    "texto": "Lo uso para trabajar todos los días y trato de cuidarlo porque es mi herramienta de trabajo. Hasta ahora me han resuelto todo: siempre le consulto a Ignacio y lo resuelven rápido."
+  },
+  {
+    "tipo": "chofer",
+    "nombre": "Arturo",
+    "detalle": "Chofer de Uber y Cabify",
+    "texto": "Quería conseguir un auto para trabajar sin tener que comprar uno propio. Encontré esta posibilidad y me sirvió para arrancar. Hay que organizarse con los pagos y trabajar, como todo, pero era justamente lo que estaba buscando. Y además terminé comprando el auto en cuotas."
+  },
+  {
+    "tipo": "chofer",
+    "nombre": "Fernando",
+    "detalle": "Chofer de tiempo completo",
+    "texto": "Para mí lo principal es tener las condiciones claras y saber con quién hablar si pasa algo. Me explicaron cómo funcionaba el alquiler antes de retirar el auto y eso me pareció bien. Después depende también de uno cumplir y cuidar el vehículo."
+  },
+  {
+    "tipo": "chofer",
+    "nombre": "Pablo",
+    "detalle": "Chofer de Uber",
+    "texto": "Estoy usando el auto para generar mis ingresos y la idea es aprovecharlo al máximo. Me sirve tener una opción de alquiler sin tener que hacer una inversión enorme para comprar un vehículo. Hay que trabajar y hacer los números, pero es una alternativa."
+  }
+];
+  var COLORES = ['#1f7aec', '#c2185b', '#00897b', '#e65100', '#6a1b9a', '#2e7d32'];
+  document.querySelectorAll('[data-testimonios]').forEach(function (sec) {
+    var tipo = sec.getAttribute('data-testimonios');
+    var lista = TESTIMONIOS.filter(function (t) { return t.tipo === tipo; });
+    if (!lista.length) return;
+    var pista = sec.querySelector('.testi-pista');
+    function tarjeta(t, i, copia) {
+      var c = document.createElement('figure'); c.className = 'wa-card';
+      if (copia) c.setAttribute('aria-hidden', 'true');
+      var h = document.createElement('figcaption'); h.className = 'wa-card-head';
+      var ini = document.createElement('span'); ini.className = 'wa-ini';
+      ini.style.setProperty('--c', COLORES[i % COLORES.length]); ini.textContent = t.nombre.charAt(0);
+      var txt = document.createElement('div');
+      var n = document.createElement('strong'); n.textContent = t.nombre;
+      var d = document.createElement('span'); d.textContent = t.detalle;
+      txt.appendChild(n); txt.appendChild(d); h.appendChild(ini); h.appendChild(txt);
+      var b = document.createElement('div'); b.className = 'wa-bubble';
+      var q = document.createElement('blockquote'); q.textContent = t.texto; b.appendChild(q);
+      c.appendChild(h); c.appendChild(b); return c;
+    }
+    // dos copias seguidas para que el carrusel gire sin cortes
+    [false, true].forEach(function (copia) {
+      lista.forEach(function (t, i) { pista.appendChild(tarjeta(t, i, copia)); });
+    });
+    pista.style.setProperty('--dur', (lista.length * 8) + 's');
+    var car = sec.querySelector('.testi-carrusel');
+    car.addEventListener('touchstart', function () { car.classList.toggle('pausado'); }, { passive: true });
+    sec.hidden = false;
+  });
+</script>
+<script>
+/* Animaciones: título por palabras, aparición al hacer scroll y números que cuentan */
+(function () {
+  var reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 1) Título del encabezado, palabra por palabra
+  var h1 = document.querySelector('.hero h1');
+  if (h1 && !reducir) {
+    var i = 0;
+    (function partir(nodo) {
+      Array.prototype.slice.call(nodo.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (t) {
+            if (!t) return;
+            if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
+            var w = document.createElement('span'); w.className = 'w';
+            var s = document.createElement('span'); s.textContent = t; s.style.setProperty('--i', i++);
+            w.appendChild(s); frag.appendChild(w);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if (n.nodeType === 1) { partir(n); }
+      });
+    })(h1);
+  }
+  // 2) Aparición al hacer scroll
+  var sel = [".grid > .card", ".step", ".testi-head", ".cta"];
+  var els = document.querySelectorAll(sel.join(','));
+  if (!('IntersectionObserver' in window) || reducir) { return; }
+  els.forEach(function (el) {
+    if (el.closest('.hero')) return;
+    el.classList.add('anim');
+    var hermanos = Array.prototype.filter.call(el.parentNode.children, function (h) { return h.matches(sel.join(',')); });
+    el.style.setProperty('--d', (Math.max(0, hermanos.indexOf(el)) % 4) * 0.09 + 's');
+  });
+  var obs = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var t = e.target; t.classList.add('in'); obs.unobserve(t);
+      // al terminar la entrada vuelve a su estado normal (así el hover responde rápido)
+      setTimeout(function () { t.classList.remove('anim', 'in'); t.style.removeProperty('--d'); }, 1500);
+      var n = t.querySelector('[data-contar]') || (t.hasAttribute('data-contar') ? t : null);
+      if (n) contar(n);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.anim').forEach(function (el) { obs.observe(el); });
+  function contar(el) {
+    var fin = parseInt(el.getAttribute('data-contar'), 10), pre = el.getAttribute('data-prefijo') || '';
+    var t0 = performance.now();
+    (function paso(t) {
+      var p = Math.min((t - t0) / 1300, 1);
+      el.textContent = pre + Math.round(fin * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(paso);
+    })(t0);
+  }
+})();
+</script>
 </body>
 </html>
