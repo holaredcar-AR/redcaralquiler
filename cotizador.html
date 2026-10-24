@@ -210,15 +210,16 @@
     .resultado-precio { font-size: 2rem; }
   }
 .alerta-gnc {
-  background-color: #ff4d4d;
-  color: #fff;
-  border: 2px solid #cc0000;
-  padding: 10px;
-  border-radius: 10px;
-  font-weight: 700;
+  background-color: #f0e6f6;
+  color: #3d1a55;
+  border: 1px solid rgba(84,36,116,0.25);
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 500;
+  line-height: 1.5;
   text-align: center;
   margin-top: 15px;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
 }
 @keyframes aparecer {
   to {
@@ -350,10 +351,7 @@ body::before {
       <h2 class="card-title" style="margin-top:0">Tu cotización</h2>
       <p class="card-subtitle" id="res-subtitulo"></p>
       <div class="resultado-card">
-        <div class="contador-wsp">
-  ⏱ Oferta disponible por: <span id="timer">05:00</span>
-</div>
-        <div class="resultado-label">Alquiler mensual estimado</div>
+        <div class="resultado-label">Ganancia mensual estimada para vos</div>
         <div class="resultado-precio" id="res-precio"></div>
         <p class="resultado-desc" id="res-desc"></p>
         <div class="resultado-tags" id="res-tags"></div>
@@ -373,7 +371,7 @@ body::before {
       <div class="no-califica">
         <div class="ico">⚠️</div>
         <h3>Tu auto no califica por el momento</h3>
-        <p>Buscamos autos a partir del año 2022 con bajo kilometraje. Si tu auto no cumple alguno de los requisitos actuales, escribinos igual y lo evaluamos.</p>
+        <p>Buscamos autos del año 2020 en adelante y con hasta 80.000 km. Si tu auto no cumple alguno de los requisitos actuales, escribinos igual y lo evaluamos.</p>
       </div>
       <div class="divider"></div>
       <a href="https://wa.me/5491164647131?text=Hola%20RedCar%2C%20quiero%20consultar%20sobre%20mi%20auto" class="btn-wsp" target="_blank">
@@ -491,16 +489,10 @@ function cotizar() {
   let califica = true;
 
   /// Verificar rangos
-  if (anio >= 2020 && anio <= 2024) {
-    if (km <= 80000) {
-      if (gnc) { precioMin = 1000000; precioMax = 1200000; }
-      else { precioMin = 800000; precioMax = 800000; }
-    } else califica = false;
-  } else if (anio >= 2024 && anio <= 2026) {
-    if (km <= 80000) {
-      if (gnc) { precioMin = 1200000; precioMax = 1500000; }
-      else { precioMin = 800000; precioMax = 800000; }
-    } else califica = false;
+  // Autos 2020 en adelante, hasta 80.000 km
+  if (anio >= 2020 && km <= 80000) {
+    if (gnc) { precioMin = 1300000; precioMax = 1650000; }
+    else { precioMin = 800000; precioMax = 800000; }
   } else {
     califica = false;
   }
@@ -515,25 +507,24 @@ function cotizar() {
     document.getElementById('res-subtitulo').textContent =
       `${f.marca} ${f.modelo} ${f.version} — ${f.anio} · ${parseInt(f.km).toLocaleString('es-AR')} km`;
 document.getElementById('res-precio').textContent = precioFmt + ' por mes';    document.getElementById('res-desc').textContent =
-      `Estimación basada en un ${f.anio} con ${parseInt(f.km).toLocaleString('es-AR')} km${gnc ? ' y GNC' : ''}. El valor final se confirma tras la revisión del vehículo.`;
+      `Estimación basada en un ${f.anio} con ${parseInt(f.km).toLocaleString('es-AR')} km${gnc ? ' y GNC' : ''}. Es lo que estimamos que recibís por mes, con nuestra comisión (25% del alquiler) ya descontada. A ese monto se le restan los mantenimientos y los gastos a cargo del dueño (seguro, patente y GPS). El valor final se confirma tras la revisión del vehículo.`;
 
     const tags = [
-  'Pago semanal garantizado',
+  'Cobro semanal por transferencia',
   'Chofer verificado',
   'Seguimiento y reportes de tu vehículo',
   'Contrato incluido',
-  'Sin hacer nada'
+  'Nos ocupamos de todo'
 ];
 
 document.getElementById('res-tags').innerHTML =
   tags.map(t => `<span class="tag">${t}</span>`).join('') +
-  (!gnc ? `<div class="alerta-gnc">⚠️ SIN GNC NO ES PROBLEMA: Tenés hasta 30 días para instalarlo ⚠️</div>` : '');
+  (!gnc ? `<div class="alerta-gnc">Sin GNC también podemos empezar. Te recomendamos colocarlo en el corto plazo: el auto rinde más y tu ganancia mejora. Te asesoramos en todo el proceso.</div>` : '');
 
     const msg = encodeURIComponent(`Hola RedCar! Hice la cotización en la web y me dio ${precioFmt}/mes para mi ${f.marca} ${f.modelo} ${f.version} ${f.anio} con ${f.km}km${gnc ? ' y GNC' : ''}. Quiero más información.`);
     document.getElementById('btn-wsp-link').href = `https://wa.me/5491164647131?text=${msg}`;
 
     document.getElementById('res-ok').style.display = 'block';
-    iniciarContador();
     setTimeout(() => {
   document.querySelector('.btn-wsp').classList.add('animar');
 }, 800);
