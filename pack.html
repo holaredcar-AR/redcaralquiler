@@ -444,6 +444,36 @@
   .comp-nota { margin-top: 14px; font-size: 0.75rem; color: rgba(255,255,255,0.35); }
   @keyframes crecer { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @media (prefers-reduced-motion: reduce) { .bar::before { animation: none; } }
+
+  /* ===== Comparativa auto vs. departamento ===== */
+  .comp-card.vs-comp { padding: 0; font-size: 1rem; text-shadow: none; background: none; border: none; box-shadow: none; }
+  .vs-tabla { display: grid; grid-template-columns: 1.15fr 1fr 1fr; border: 1px solid var(--vs-borde); border-radius: 18px; overflow: hidden; background: var(--vs-fondo); }
+  .vs-c { padding: 15px 16px; border-top: 1px solid var(--vs-linea); display: flex; flex-direction: column; justify-content: center; }
+  .vs-head { border-top: none; align-items: center; text-align: center; gap: 4px; padding: 18px 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1rem; color: var(--vs-texto); }
+  .vs-head span { font-size: 1.5rem; }
+  .vs-head.vs-auto { background: #542474; color: #fff; }
+  .vs-lab { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.93rem; color: var(--vs-texto); }
+  .vs-lab small { display: block; font-family: inherit; font-weight: 500; font-size: 0.78rem; color: var(--vs-suave); margin-top: 3px; }
+  .vs-val { align-items: center; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.02rem; }
+  .vs-val small { font-weight: 500; font-size: 0.76rem; color: var(--vs-suave); margin-top: 3px; }
+  .vs-val.vs-auto { background: var(--vs-auto-fondo); color: var(--vs-auto-texto); }
+  .vs-dep { color: var(--vs-dep); }
+  .vs-gana { display: inline-flex; align-items: center; gap: 7px; }
+  .vs-gana::after { content: '✓'; display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--vs-tilde); color: var(--vs-tilde-txt); font-size: 0.7rem; flex-shrink: 0; }
+  .vs-nota { margin-top: 14px; font-size: 0.78rem; line-height: 1.6; color: var(--vs-suave); text-align: center; }
+  .vs-apilada .vs-tabla, .vs-apilada { }
+  @media (max-width: 640px) {
+    .vs-tabla { grid-template-columns: 1fr 1fr; }
+    .vs-vacio { display: none; }
+    .vs-lab { grid-column: 1 / -1; background: var(--vs-lab-fondo); padding: 11px 14px 9px; }
+    .vs-val { border-top: none; padding: 12px 8px; font-size: 0.97rem; }
+  }
+  .renta-section { --vs-borde: rgba(128,64,176,0.35); --vs-linea: rgba(255,255,255,0.07); --vs-fondo: #1a1024; --vs-texto: #fff; --vs-suave: rgba(255,255,255,0.45); --vs-auto-fondo: rgba(84,36,116,0.28); --vs-auto-texto: #F5C518; --vs-dep: rgba(255,255,255,0.7); --vs-tilde: #F5C518; --vs-tilde-txt: #1a1024; --vs-lab-fondo: rgba(255,255,255,0.03); }
+
+  .renta-section .vs-tabla { grid-template-columns: 1fr 1fr; }
+  .renta-section .vs-vacio { display: none; }
+  .renta-section .vs-lab { grid-column: 1 / -1; background: var(--vs-lab-fondo); padding: 11px 14px 9px; }
+  .renta-section .vs-val { border-top: none; padding: 12px 8px; }
   .renta-features {
     display: flex;
     flex-direction: column;
@@ -946,6 +976,33 @@
     .js-anim .anim, .js-anim .anim ul li, .js-anim .anim .step-num { opacity: 1 !important; transform: none !important; transition: none !important; }
   }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4245800652233009');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+  
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RT4N5LZ75Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RT4N5LZ75Y');
+</script>
 </head>
 <body>
 
@@ -1094,30 +1151,9 @@
         </div>
       </div>
     </div>
-    <div class="comp-card" role="img" aria-label="Comparación: auto administrado frente a departamento en alquiler">
-      <div class="comp-head"><span></span><span class="comp-col auto">🚗 Auto</span><span class="comp-col depto">🏢 Depto.</span></div>
-      <div class="comp-row">
-        <span class="comp-lab">Inversión inicial</span>
-        <div class="comp-bars">
-          <div class="bar auto" style="--w:17%"><b>USD 10.000</b></div>
-          <div class="bar depto" style="--w:100%"><b>USD 60.000</b></div>
-        </div>
-      </div>
-      <div class="comp-row">
-        <span class="comp-lab">Recupero de la inversión</span>
-        <div class="comp-bars">
-          <div class="bar auto" style="--w:8%"><b>1,5 años</b></div>
-          <div class="bar depto" style="--w:100%"><b>20 años</b></div>
-        </div>
-      </div>
-      <div class="comp-row">
-        <span class="comp-lab">Rentabilidad</span>
-        <div class="comp-bars">
-          <div class="bar auto" style="--w:90%"><b>Alta</b></div>
-          <div class="bar depto" style="--w:30%"><b>Baja</b></div>
-        </div>
-      </div>
-      <p class="comp-nota">Valores de referencia en AMBA. Cada caso depende del auto, el uso y el mercado.</p>
+    <div class="comp-card vs-comp" role="table" aria-label="Comparación: auto administrado frente a departamento en alquiler">
+      <div class="vs-tabla"><div class="vs-c vs-head vs-vacio"></div><div class="vs-c vs-head vs-auto"><span aria-hidden="true">🚗</span>Auto administrado</div><div class="vs-c vs-head"><span aria-hidden="true">🏢</span>Departamento</div><div class="vs-c vs-lab">Inversión inicial<small>lo que necesitás para empezar</small></div><div class="vs-c vs-val vs-auto"><span class="vs-gana">USD 10.000</span><small>6 veces menos</small></div><div class="vs-c vs-val vs-dep">USD 60.000</div><div class="vs-c vs-lab">Rentabilidad anual<small>lo que te devuelve por año</small></div><div class="vs-c vs-val vs-auto"><span class="vs-gana">~65%</span></div><div class="vs-c vs-val vs-dep">~5%</div><div class="vs-c vs-lab">Recuperás la inversión en<small>tiempo estimado</small></div><div class="vs-c vs-val vs-auto"><span class="vs-gana">~1,5 años</span></div><div class="vs-c vs-val vs-dep">~20 años</div><div class="vs-c vs-lab">Cobro<small>cada cuánto entra la plata</small></div><div class="vs-c vs-val vs-auto"><span class="vs-gana">Semanal</span></div><div class="vs-c vs-val vs-dep">Mensual</div><div class="vs-c vs-lab">Quién se ocupa<small>inquilino, controles, imprevistos</small></div><div class="vs-c vs-val vs-auto"><span class="vs-gana">RedCar</span></div><div class="vs-c vs-val vs-dep">Vos o una inmobiliaria</div></div>
+      <p class="vs-nota">Valores de referencia en AMBA, estimados según nuestra experiencia. Cada caso depende del auto, el uso y el mercado.</p>
     </div>
   </div>
 </div>
@@ -1391,6 +1427,73 @@ window.abrirWA = function() {
       el.textContent = pre + Math.round(fin * (1 - Math.pow(1 - p, 3)));
       if (p < 1) requestAnimationFrame(paso);
     })(t0);
+  }
+})();
+</script>
+<script>
+/* ===== Medición de contactos (Google Analytics + Píxel de Meta) ===== */
+(function () {
+  var pagina = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  function enviar(nombreGA, datosGA, eventoMeta, datosMeta, personalizado) {
+    try { if (window.gtag) gtag('event', nombreGA, datosGA); } catch (e) {}
+    try {
+      if (window.fbq && eventoMeta) {
+        if (personalizado) fbq('trackCustom', eventoMeta, datosMeta || {});
+        else fbq('track', eventoMeta, datosMeta || {});
+      }
+    } catch (e) {}
+  }
+  // Quién escribe: dueño, chofer o comprador del Pack, según el mensaje y la página
+  function tipoDe(url) {
+    var t = '';
+    try { t = decodeURIComponent((url.split('text=')[1] || '')).toLowerCase(); } catch (e) {}
+    if (/pack|contrato de locaci/.test(t)) return 'pack';
+    if (/due[ñn]o|tengo un auto|administren|cotizaci/.test(t)) return 'dueno';
+    if (/alquilar|chofer/.test(t)) return 'chofer';
+    if (pagina === 'duenos' || pagina === 'cotizador') return 'dueno';
+    if (pagina === 'chofer') return 'chofer';
+    if (pagina === 'pack') return 'pack';
+    return 'general';
+  }
+  function contactoWhatsApp(url, boton) {
+    var tipo = tipoDe(url);
+    enviar('contacto_whatsapp', { tipo: tipo, pagina: pagina, boton: (boton || '').trim().slice(0, 60) },
+           'Contact', { content_category: tipo, content_name: pagina });
+    if (tipo === 'pack') {
+      var solo = /contrato de locaci/i.test(decodeURIComponent(url));
+      enviar('intencion_compra_pack', { producto: solo ? 'contrato' : 'pack', value: solo ? 49000 : 99000, currency: 'ARS' },
+             'InitiateCheckout', { value: solo ? 49000 : 99000, currency: 'ARS', content_name: solo ? 'Contrato' : 'Pack Dueño Experto' });
+    }
+  }
+  // Clics en enlaces de WhatsApp e Instagram
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('wa.me/') !== -1) contactoWhatsApp(href, a.textContent);
+    else if (href.indexOf('instagram.com') !== -1) enviar('click_instagram', { pagina: pagina });
+    else if (/cotizador\.html/.test(href)) enviar('ir_al_cotizador', { pagina: pagina });
+  }, true);
+  // WhatsApp abierto desde código (formulario del Pack)
+  var abrir = window.open;
+  window.open = function (url) {
+    if (typeof url === 'string' && url.indexOf('wa.me/') !== -1) contactoWhatsApp(url, 'formulario');
+    return abrir.apply(window, arguments);
+  };
+  // Cotizador: registra cada cotización y su resultado
+  if (typeof window.cotizar === 'function') {
+    var cotizarOriginal = window.cotizar;
+    window.cotizar = function () {
+      var r = cotizarOriginal.apply(this, arguments);
+      try {
+        var ok = document.getElementById('res-ok') && document.getElementById('res-ok').style.display !== 'none';
+        var anio = (document.getElementById('anio') || {}).value || '';
+        var gnc = document.getElementById('gnc-si') && document.getElementById('gnc-si').classList.contains('active');
+        enviar('cotizacion', { resultado: ok ? 'califica' : 'no_califica', anio: anio, gnc: gnc ? 'si' : 'no' },
+               'Cotizacion', { resultado: ok ? 'califica' : 'no_califica' }, true);
+      } catch (e) {}
+      return r;
+    };
   }
 })();
 </script>
