@@ -1525,5 +1525,72 @@ src="https://www.facebook.com/tr?id=4245800652233009&ev=PageView&noscript=1"
     }
   });
 </script>
+<script>
+/* ===== Medición de contactos (Google Analytics + Píxel de Meta) ===== */
+(function () {
+  var pagina = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  function enviar(nombreGA, datosGA, eventoMeta, datosMeta, personalizado) {
+    try { if (window.gtag) gtag('event', nombreGA, datosGA); } catch (e) {}
+    try {
+      if (window.fbq && eventoMeta) {
+        if (personalizado) fbq('trackCustom', eventoMeta, datosMeta || {});
+        else fbq('track', eventoMeta, datosMeta || {});
+      }
+    } catch (e) {}
+  }
+  // Quién escribe: dueño, chofer o comprador del Pack, según el mensaje y la página
+  function tipoDe(url) {
+    var t = '';
+    try { t = decodeURIComponent((url.split('text=')[1] || '')).toLowerCase(); } catch (e) {}
+    if (/pack|contrato de locaci/.test(t)) return 'pack';
+    if (/due[ñn]o|tengo un auto|administren|cotizaci/.test(t)) return 'dueno';
+    if (/alquilar|chofer/.test(t)) return 'chofer';
+    if (pagina === 'duenos' || pagina === 'cotizador') return 'dueno';
+    if (pagina === 'chofer') return 'chofer';
+    if (pagina === 'pack') return 'pack';
+    return 'general';
+  }
+  function contactoWhatsApp(url, boton) {
+    var tipo = tipoDe(url);
+    enviar('contacto_whatsapp', { tipo: tipo, pagina: pagina, boton: (boton || '').trim().slice(0, 60) },
+           'Contact', { content_category: tipo, content_name: pagina });
+    if (tipo === 'pack') {
+      var solo = /contrato de locaci/i.test(decodeURIComponent(url));
+      enviar('intencion_compra_pack', { producto: solo ? 'contrato' : 'pack', value: solo ? 49000 : 99000, currency: 'ARS' },
+             'InitiateCheckout', { value: solo ? 49000 : 99000, currency: 'ARS', content_name: solo ? 'Contrato' : 'Pack Dueño Experto' });
+    }
+  }
+  // Clics en enlaces de WhatsApp e Instagram
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('wa.me/') !== -1) contactoWhatsApp(href, a.textContent);
+    else if (href.indexOf('instagram.com') !== -1) enviar('click_instagram', { pagina: pagina });
+    else if (/cotizador\.html/.test(href)) enviar('ir_al_cotizador', { pagina: pagina });
+  }, true);
+  // WhatsApp abierto desde código (formulario del Pack)
+  var abrir = window.open;
+  window.open = function (url) {
+    if (typeof url === 'string' && url.indexOf('wa.me/') !== -1) contactoWhatsApp(url, 'formulario');
+    return abrir.apply(window, arguments);
+  };
+  // Cotizador: registra cada cotización y su resultado
+  if (typeof window.cotizar === 'function') {
+    var cotizarOriginal = window.cotizar;
+    window.cotizar = function () {
+      var r = cotizarOriginal.apply(this, arguments);
+      try {
+        var ok = document.getElementById('res-ok') && document.getElementById('res-ok').style.display !== 'none';
+        var anio = (document.getElementById('anio') || {}).value || '';
+        var gnc = document.getElementById('gnc-si') && document.getElementById('gnc-si').classList.contains('active');
+        enviar('cotizacion', { resultado: ok ? 'califica' : 'no_califica', anio: anio, gnc: gnc ? 'si' : 'no' },
+               'Cotizacion', { resultado: ok ? 'califica' : 'no_califica' }, true);
+      } catch (e) {}
+      return r;
+    };
+  }
+})();
+</script>
 </body>
 </html>
